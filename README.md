@@ -27,7 +27,7 @@ has_many :purchase record
 |condition      |string|null: false                     |
 |delivery charge|string|null: false                     |
 |area           |string|null: false                     |
-|user_id        |string|null: false  foreign_key: true  |
+|user           |string|null: false  foreign_key: true  |
 
 ### Association
 belongs_to :items
@@ -53,7 +53,7 @@ belongs_to :purchase record
 |------        |----  |-------                         |
 |buyer         |string|null: false                     |
 |purchase goods|string|null: false                     |
-|user_id       |string|null: false  foreign_key: true  |
+|user　　     |string|null: false  foreign_key: true  |
 
 ### Association
 has_one :Shipping address
