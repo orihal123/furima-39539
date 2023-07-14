@@ -13,53 +13,42 @@
 
 ### Association
 has_many :items
-has_many :purchase_record
+has_many :purchase_records
 
 
 
 ## items Table
-|Column                    |Type  |Options                         |
-|------                    |----  |-------                         |
-|item_name                 |string|null: false                     |
-|content                   |string|null: false                     |
-|category                  |string|null: false                     |
-|condition                 |string|null: false                     |
-|shipping_fee_burden       |string|null: false                     |
-|shipping_origin           |string|null: false                     |
-|shipping_duration         |string|null: false                     |
-|price                     |string|null: false                     |
-|user                      |string|null: false  foreign_key: true  |
+|Column                    |Type       |Options                         |
+|------                    |----       |-------                         |
+|item_name                 |string     |null: false                     |
+|content                   |text       |null: false                     |
+|category_id               |references |null: false  foreign_key: true  |
+|condition_id              |references |null: false  foreign_key: true  |
+|shipping_fee_burden_id    |references |null: false  foreign_key: true  |
+|prefecture_id             |references |null: false  foreign_key: true  |
+|shipping_duration_id      |references |null: false  foreign_key: true  |
+|price                     |integer    |null: false                     |
+|user                      |string     |null: false  foreign_key: true  |
 
 ### Association
 belongs_to :user
-has_one :purchase_record
-has_many :item_images
-
-## item images Table
-|Column                    |Type  |Options                         |
-|------                    |----  |-------                         |
-|item_image                |string|null: false                     |
-
-### Association
-belongs_to :items
-
-
+has_one :purchase_records
 
 
 ## Shipping addresses Table
 
-|Column                |Type  |Options           |
-|------                |----  |-------           |
-|post-code             |string|null: false       |
-|prefectures           |string|null: false       |
-|municipalities        |string|null: false       |
-|address_information   |string|null: false       |
-|building_name         |string|null: false       |
-|telephone_number      |string|null: false       |
-|purchase record_id   |string|null: false  foreign_key: true       |
+|Column                |Type       |Options                       |
+|------                |----       |-------                       |
+|post_code_id          |references |null: false  foreign_key: true|
+|prefecture_id         |references |null: false  foreign_key: true|
+|municipalities        |string     |null: false                   |
+|address_information   |string     |null: false                   |
+|building_name         |string     |                              |
+|telephone_number      |integer    |null: false                   |
+|purchaser_record_id   |references |null: false  foreign_key: true|
 
 ### Association
-belongs_to :purchase_record
+belongs_to :purchase_records
 
 
 ## purchase record Table
@@ -69,6 +58,6 @@ belongs_to :purchase_record
 |item          | references |null: false,  foreign_key: true |
 
 ### Association
-has_one :Shipping_address
+has_one :shipping_address
 belongs_to :items
 belongs_to :user
