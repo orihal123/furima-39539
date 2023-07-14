@@ -39,7 +39,7 @@ has_one :purchase_record
 
 |Column                |Type       |Options                       |
 |------                |----       |-------                       |
-|post_code_id          |string     |null: false                   |
+|post_code             |string     |null: false                   |
 |prefecture_id         |integer    |null: false                   |
 |municipalities        |string     |null: false                   |
 |address_information   |string     |null: false                   |
