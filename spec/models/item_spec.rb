@@ -43,30 +43,30 @@ RSpec.describe Item, type: :model do
       end
 
       it 'カテゴリーに「---」が選択されている場合は出品できない' do
-        @item.category_id= nil
+        @item.category_id= 1
         @item.valid?
         expect(@item.errors.full_messages).to include ("Category can't be blank")
       end
       it '商品の状態に「---」が選択されている場合は出品できない' do
-        @item.condition_id= nil
+        @item.condition_id= 1
         @item.valid?
         expect(@item.errors.full_messages).to include ("Condition can't be blank")
       end
 
       it '配送料の負担に「---」が選択されている場合は出品できない' do
-        @item.shipping_fee_burden_id = nil
+        @item.shipping_fee_burden_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include ("Shipping fee burden can't be blank")
       end
 
       it '発送元の地域に「---」が選択されている場合は出品できない' do
-        @item.prefecture_id = nil
+        @item.prefecture_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include ("Prefecture can't be blank")
       end
 
       it '発送までの日数に「---」が選択されている場合は出品できない' do
-        @item.shipping_duration_id = nil
+        @item.shipping_duration_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include ("Shipping duration can't be blank")
       end
@@ -98,6 +98,11 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Price is not a number")
       end  
 
+    end
+      it 'ユーザーが紐付いていなければ投稿できない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include('User must exist')
     end
   end
 end
