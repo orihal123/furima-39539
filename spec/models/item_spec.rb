@@ -5,7 +5,7 @@ RSpec.describe Item, type: :model do
 
     @item = FactoryBot.build(:item)
 
-     # 画像のテスト用のファイルパスを指定
+    # 画像のテスト用のファイルパスを指定
      test_image_path = Rails.root.join('spec', 'fixtures', 'test_image.jpg')
      test_image = Rack::Test::UploadedFile.new(test_image_path, 'image/jpeg')
      @item.image = test_image # テスト用の画像を直接代入
