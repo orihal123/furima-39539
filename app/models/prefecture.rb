@@ -52,6 +52,6 @@ class Prefecture < ActiveHash::Base
   ]
 
   include ActiveHash::Associations
-  has_many :articles
+  has_many :items
   
 end
