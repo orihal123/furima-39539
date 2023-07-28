@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :item do
     item_name                { 'test' }
     content                  { 'test@example' }
-    price                    { rand(300..9999999) }
+    price                    { rand(300..9_999_999) }
     category_id              { 2 }   # 適切なカテゴリーのIDを指定
     condition_id             { 2 }  # 適切な商品の状態のIDを指定
     shipping_fee_burden_id   { 2 }  # 適切な配送料の負担のIDを指定
@@ -14,4 +14,3 @@ FactoryBot.define do
     association :user
   end
 end
-
