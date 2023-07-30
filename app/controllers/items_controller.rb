@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :set_item, only: [:show, :create, :edit, :update]
   before_action :check_owner, only: [:edit, :update,]
 
   def index
@@ -11,7 +12,6 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.new(item_params)
     if @item.save
       redirect_to root_path
     else
@@ -20,17 +20,12 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
   end
 
   def edit
-    @item = Item.find(params[:id])
-
   end
 
   def update
-    item = Item.find(params[:id])
-    @item = Item.find(params[:id])
     if @item.update(item_params)
       redirect_to @item, notice: 'Item was successfully updated.'
     else
@@ -43,6 +38,14 @@ class ItemsController < ApplicationController
 
   private
 
+  def set_item
+    @item = Item.find(params[:id])
+  end
+
+  def check_owner
+    redirect_to root_path unless @item.user == current_user
+  end
+
   def item_params
     params
       .require(:item)
@@ -51,10 +54,7 @@ class ItemsController < ApplicationController
       .merge(user_id: current_user.id)
   end
 
-  def check_owner
-    @item = Item.find(params[:id])
-    redirect_to root_path unless @item.user == current_user
-  end
 end
+
 
 
