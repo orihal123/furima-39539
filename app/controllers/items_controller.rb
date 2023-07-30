@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :set_item, only: [:show, :create, :edit, :update]
+  before_action :check_owner, only: [:edit, :update,]
 
   def index
     @items = Item.order('created_at DESC')
@@ -10,7 +12,6 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.new(item_params)
     if @item.save
       redirect_to root_path
     else
@@ -19,10 +20,31 @@ class ItemsController < ApplicationController
   end
 
   def show
+  end
+
+  def edit
+  end
+
+  def update
+    if @item.update(item_params)
+      redirect_to @item, notice: 'Item was successfully updated.'
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+  
+
+
+
+  private
+
+  def set_item
     @item = Item.find(params[:id])
   end
 
-  private
+  def check_owner
+    redirect_to root_path unless @item.user == current_user
+  end
 
   def item_params
     params
@@ -31,6 +53,8 @@ class ItemsController < ApplicationController
               :shipping_fee_burden_id, :prefecture_id, :shipping_duration_id, :price)
       .merge(user_id: current_user.id)
   end
+
 end
 
-# コメントをするときは＃でコメントアウトするようにしようね
+
+
