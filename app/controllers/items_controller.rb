@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
   before_action :set_item, only: [:show, :edit, :update]
-  before_action :check_owner, only: [:edit, :update,]
+  before_action :check_owner, only: [:edit, :update]
 
   def index
     @items = Item.order('created_at DESC')
@@ -40,10 +40,6 @@ class ItemsController < ApplicationController
     item.destroy
     redirect_to root_path
   end
-    
-  
-
-
 
   private
 
@@ -62,8 +58,4 @@ class ItemsController < ApplicationController
               :shipping_fee_burden_id, :prefecture_id, :shipping_duration_id, :price)
       .merge(user_id: current_user.id)
   end
-
 end
-
-
-
