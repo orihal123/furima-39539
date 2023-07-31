@@ -35,7 +35,11 @@ belongs_to :user
 has_one :order
 
 
+
 ## Addresses Table
+
+
+
 
 |Column                |Type       |Options                       |
 |------                |----       |-------                       |
@@ -48,9 +52,9 @@ has_one :order
 |order                 |references |null: false  foreign_key: true|
 
 ### Association
-belongs_to :order
+belongs_to :orders
 
-## orders Table
+## purchase records Table
 |Column        |Type        |Options                         |
 |------        |----        |-------                         |
 |user          | references |null: false,  foreign_key: true |
