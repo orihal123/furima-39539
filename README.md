@@ -13,7 +13,7 @@
 
 ### Association
 has_many :items
-has_many :purchase_records
+has_many :order
 
 
 
@@ -32,31 +32,31 @@ has_many :purchase_records
 
 ### Association
 belongs_to :user
-has_one :purchase_record
+has_one :order
 
 
-## Shipping addresses Table
+## Addresses Table
 
 |Column                |Type       |Options                       |
 |------                |----       |-------                       |
-|post_code             |string     |null: false                   |
+|postal_code           |string     |null: false                   |
 |prefecture_id         |integer    |null: false                   |
 |municipalities        |string     |null: false                   |
 |address_information   |string     |null: false                   |
 |building_name         |string     |                              |
 |telephone_number      |string     |null: false                   |
-|purchaser_record      |references |null: false  foreign_key: true|
+|order                 |references |null: false  foreign_key: true|
 
 ### Association
-belongs_to :purchase_record
+belongs_to :order
 
-## purchase records Table
+## orders Table
 |Column        |Type        |Options                         |
 |------        |----        |-------                         |
 |user          | references |null: false,  foreign_key: true |
 |item          | references |null: false,  foreign_key: true |
 
 ### Association
-has_one :shipping_address
+has_one :address
 belongs_to :item
 belongs_to :user
