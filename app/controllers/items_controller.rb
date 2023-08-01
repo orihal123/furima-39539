@@ -3,6 +3,7 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update]
   before_action :check_owner, only: [:edit, :update, :destroy]
 
+
   def index
     @items = Item.order('created_at DESC')
   end
@@ -22,6 +23,8 @@ class ItemsController < ApplicationController
   end
 
   def show
+    @item = Item.find(params[:id])
+    @order = Order.find_by(item_id: @item.id)
   end
 
   def edit
@@ -40,6 +43,9 @@ class ItemsController < ApplicationController
     item.destroy
     redirect_to root_path
   end
+  
+ 
+
 
   private
 
