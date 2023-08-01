@@ -5,8 +5,8 @@ class OrderAddress
 
   validates :prefecture_id, :municipalities, :address_information, :building_name,
             :user_id, :item_id, presence: true
-  validates :postal_code, presence: true, format: { with: /\A\d{3}-\d{4}\z/, message: "は3桁ハイフン4桁の形式で入力してください" }
-  validates :telephone_number, presence: true, format: { with: /\A\d{10,11}\z/, message: "は10桁以上11桁以内の半角数値で入力してください" }
+  validates :postal_code, presence: true, format: { with: /\A\d{3}-\d{4}\z/, message: "please enter in the format of 3 digits, hyphens and 4 digits" }
+  validates :telephone_number, presence: true, format: { with: /\A\d{10,11}\z/, message: "please enter a half-width number between 10 and 11 digits" }
   validates :token, presence: true
 
 
