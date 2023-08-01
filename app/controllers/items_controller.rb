@@ -6,6 +6,8 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.order('created_at DESC')
+    
+    
   end
 
   def new
@@ -23,7 +25,6 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
     @order = Order.find_by(item_id: @item.id)
   end
 

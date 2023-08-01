@@ -26,6 +26,8 @@ class Item < ApplicationRecord
     errors.add(:image, "can't be blank")
   end
 
+  
+
   extend ActiveHash::Associations::ActiveRecordExtensions
 
   belongs_to_active_hash :condition
