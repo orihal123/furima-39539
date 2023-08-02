@@ -1,11 +1,12 @@
 class OrdersController < ApplicationController
 before_action :authenticate_user!, only: [:index, :create]
+before_action :set_item, only: [:index, :create]
+
 
 
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @order_address = OrderAddress.new
-    @item = Item.find(params[:item_id])
   
     if user_signed_in?
       # 自身が出品している商品かどうかを判定
@@ -19,7 +20,7 @@ before_action :authenticate_user!, only: [:index, :create]
 
   def create
     @order_address = OrderAddress.new(order_params)
-    @item = Item.find(params[:item_id])
+  
 
     if @order_address.valid?
       pay_item
@@ -32,6 +33,10 @@ before_action :authenticate_user!, only: [:index, :create]
 
   private
 
+  def set_item
+    @item = Item.find(params[:id])
+  end
+
   def order_params
     params.require(:order_address)
           .permit(:postal_code, :prefecture_id, :municipalities, :address_information, :building_name, :telephone_number)
@@ -41,9 +46,9 @@ before_action :authenticate_user!, only: [:index, :create]
   def pay_item
       Payjp.api_key = ENV["PAYJP_SECRET_KEY"] 
       Payjp::Charge.create(
-        amount: @item.price,  # 商品の値段
-        card: order_params[:token],    # カードトークン
-        currency: 'jpy'                 # 通貨の種類（日本円）
+        amount: @item.price,  
+        card: order_params[:token], 
+        currency: 'jpy'      
       )
   end
 end

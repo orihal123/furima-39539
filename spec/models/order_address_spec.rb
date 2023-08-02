@@ -61,16 +61,29 @@ RSpec.describe OrderAddress, type: :model do
       it 'telephone_numberが10桁以上11桁以内の半角数値のみ保存可能なこと' do
         @order_address.telephone_number = '11'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include('Telephone number please enter a half-width number between 10 and 11 digits')
+        expect(@order_address.errors.full_messages).to include("Telephone number please enter a half-width number between 10 and 11 digits")
       end
 
-      it 'userが紐付いていないと保存できないこと' do
+      it 'telephone_numberが12桁以上だと購入できないこと' do
+        @order_address.telephone_number = '111111111111'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Telephone number please enter a half-width number between 10 and 11 digits")
+      end
+
+      it 'telephone_numberに半角数字以外が含まれている場合は購入できないこと' do
+        @order_address.telephone_number = '-'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Telephone number please enter a half-width number between 10 and 11 digits")
+      end
+
+
+      it 'userが紐付いていないと購入できないこと' do
         @order_address.user_id = nil
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("User can't be blank")
       end
 
-      it 'itemが紐付いていないと保存できないこと' do
+      it 'itemが紐付いていないと購入できないこと' do
         @order_address.item_id = nil
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Item can't be blank")
