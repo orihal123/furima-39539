@@ -6,14 +6,12 @@ class OrdersController < ApplicationController
     @item = Item.find(params[:item_id])
   
     if user_signed_in?
-      # 商品が自身が出品したものでないかつ売却済みかどうかを判定
-      if @item.user == current_user || @item.order.present?
-        # トップページへリダイレクト
-        redirect_to root_path, alert: 'この商品は購入できません。'
+      # 自身が出品している商品かどうかを判定
+      if @item.user == current_user
+        redirect_to root_path, alert: '自身が出品した商品は購入できません。'
+      elsif @item.order.present?
+        redirect_to root_path, alert: '売却済みの商品は購入できません。'
       end
-    else
-      # ログインしていない場合、ログイン画面へリダイレクト
-      redirect_to new_user_session_path, alert: 'このページにアクセスするにはログインが必要です。'
     end
   end
 
