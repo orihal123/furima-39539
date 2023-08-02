@@ -3,6 +3,18 @@ class OrdersController < ApplicationController
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @order_address = OrderAddress.new
+    @item = Item.find(params[:item_id])
+  
+    if user_signed_in?
+      # 商品が自身が出品したものでないかつ売却済みかどうかを判定
+      if @item.user == current_user || @item.order.present?
+        # トップページへリダイレクト
+        redirect_to root_path, alert: 'この商品は購入できません。'
+      end
+    else
+      # ログインしていない場合、ログイン画面へリダイレクト
+      redirect_to new_user_session_path, alert: 'このページにアクセスするにはログインが必要です。'
+    end
   end
 
   def create
