@@ -2,7 +2,7 @@ class Item < ApplicationRecord
   has_one_attached :image
   belongs_to :category
   belongs_to :user
-  has_many :order
+  has_one :order
 
   validates :item_name, :content, :category_id, :condition_id, :shipping_fee_burden_id,
             :prefecture_id, :shipping_duration_id, presence: true
@@ -25,8 +25,6 @@ class Item < ApplicationRecord
 
     errors.add(:image, "can't be blank")
   end
-
-  
 
   extend ActiveHash::Associations::ActiveRecordExtensions
 
