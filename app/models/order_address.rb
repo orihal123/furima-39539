@@ -9,7 +9,8 @@ class OrderAddress
               format: { with: /\A\d{3}-\d{4}\z/, message: 'please enter in the format of 3 digits, hyphens and 4 digits' }
     validates :telephone_number,
               format: { with: /\A\d{10,11}\z/, message: 'please enter a half-width number between 10 and 11 digits' }
-    validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
+    validates :prefecture_id,
+              numericality: { other_than: 1, message: "can't be blank" }
   end
 
   def save
